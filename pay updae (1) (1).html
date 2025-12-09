@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twins-Vour- All Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.15);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo-icon {
+            font-size: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo h1 {
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 30px;
+            background: white;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        /* Payment Methods */
+        .payment-section {
+            background: var(--dark);
+            color: white;
+            padding: 30px;
+            position: relative;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .method-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .method-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .method-card.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--success);
+            transform: translateY(-3px);
+        }
+
+        .method-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--success);
+        }
+
+        .method-name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* QR Code Preview */
+        .qris-preview, .ewallet-preview {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .qris-box {
+            width: 180px;
+            height: 180px;
+            background: white;
+            border-radius: 10px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .payment-number {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .number-display {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px auto;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .account-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px dashed #e1e5eb;
+            display: none;
+        }
+
+        .upload-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--primary);
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .upload-area:hover {
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .preview-container {
+            display: none;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .preview-image {
+            max-width: 250px;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 16px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-qrcode {
+            width: 250px;
+            height: 250px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            color: var(--primary);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 15px 20px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 350px;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            border-left: 5px solid var(--success);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Admin Telegram Info */
+        .admin-info {
+            background: rgba(0, 136, 204, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            border: 2px solid #0088cc;
+        }
+
+        .admin-info h4 {
+            color: #0088cc;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .form-section, .payment-section {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- QR Code Modal -->
+    <div class="modal" id="qrisModal">
+        <div class="modal-content">
+            <h2>Scan QR Code untuk Pembayaran</h2>
+            <div class="modal-qrcode">
+                <i class="fas fa-qrcode"></i>
+            </div>
+            <p>Buka aplikasi e-wallet atau mobile banking Anda, lalu scan QR code di atas</p>
+            <button class="btn-primary" onclick="closeModal()" style="margin-top: 20px;">
+                <i class="fas fa-times"></i> Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="notification-content">
+            <h4 id="notificationTitle">Berhasil!</h4>
+            <p id="notificationMessage">Pesan sedang dipersiapkan</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+                <div>
+                    <h1>Twinsz-VourTr</h1>
+                    <p>Real Payment</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Form Section -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Data Pembayaran
+                </h2>
+                
+                <div class="form-group">
+                    <label for="amount">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Jumlah Pembayaran
+                    </label>
+                    <input type="number" id="amount" placeholder="Contoh: 1000" min="1000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i>
+                        Nama Lengkap / Samaran
+                    </label>
+                    <input type="text" id="name" placeholder="Masukkan nama" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telegram">
+                        <i class="fab fa-telegram"></i>
+                        Username Telegram
+                    </label>
+                    <div class="input-with-icon">
+                        <input type="text" id="telegram" placeholder="@username" required>
+                    </div>
+                    <small style="color: #666; display: block; margin-top: 5px;">Nama User Harus Benar Agar Admin Tidak Salah Konfirmasi</small>
+                    </div>
+
+                <div class="form-group">
+                    <label for="whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        Nomor WhatsApp
+                    </label>
+                    <input type="tel" id="whatsapp" placeholder="081234567890" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentMethod">
+                        <i class="fas fa-credit-card"></i>
+                        Metode Pembayaran
+                    </label>
+                    <select id="paymentMethod">
+                        <option value="">Pilih metode...</option>
+                        <option value="qris">QRIS (QR Code)</option>
+                        <option value="dana">DANA</option>
+                        <option value="gopay">GoPay</option>
+                        <option value="ovo">OVO</option>
+                    </select>
+                </div>
+
+                <!-- Upload Section -->
+                <div class="upload-section" id="uploadSection">
+                    <div class="upload-header">
+                        <h3><i class="fas fa-cloud-upload-alt"></i> Upload Bukti Pembayaran</h3>
+                        <p>Screenshot bukti transfer Anda</p>
+                    </div>
+                    
+                    <div class="upload-area" onclick="triggerFileInput()">
+                        <div class="upload-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h4>Klik untuk memilih file</h4>
+                        <p>Format: JPG, PNG, PDF (Maks. 5MB)</p>
+                        <input type="file" id="fileInput" style="display: none;" accept="image/*,.pdf">
+                    </div>
+                    
+                    <div class="preview-container" id="previewContainer">
+                        <img src="" alt="Preview" class="preview-image" id="previewImage">
+                        <button class="btn-secondary" onclick="removeFile()" style="margin-top: 10px;">
+                            <i class="fas fa-trash"></i> Hapus File
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Telegram Info -->
+                <div class="admin-info">
+                    <h4><i class="fab fa-telegram"></i> Admin Telegram</h4>
+                    <p>Konfirmasi akan dikirim ke: <strong>@TwinszItsMe</strong></p>
+                    <p style="font-size: 12px; color: #666; margin-top: 5px;">
+                        Klik tombol di bawah untuk membuka Telegram
+                    </p>
+                </div>
+
+                <button class="btn-primary" onclick="validateForm()" id="submitBtn">
+                    <i class="fas fa-check-circle"></i>
+                    Lanjut ke Pembayaran
+                </button>
+
+                <button class="btn-secondary" onclick="sendToTelegram()" id="telegramBtn">
+                    <i class="fab fa-telegram"></i>
+                    Konfirmasi via Telegram
+                </button>
+            </div>
+
+            <!-- Payment Methods Preview -->
+            <div class="payment-section">
+                <h2 class="section-title">
+                    <i class="fas fa-qrcode"></i>
+                    Detail Pembayaran
+                </h2>
+
+                <!-- Default Message -->
+                <div id="defaultMessage" style="text-align: center; padding: 50px 20px;">
+                    <i class="fas fa-credit-card" style="font-size: 60px; opacity: 0.3; margin-bottom: 20px;"></i>
+                    <h3>Pilih Metode Pembayaran</h3>
+                    <p style="opacity: 0.7;">Pilih metode pembayaran di form sebelah untuk melihat detail</p>
+                </div>
+
+                <!-- QRIS Preview -->
+                <div class="qris-preview" id="qrisPreview">
+                    <h3>Scan QR Code Berikut</h3>
+                    <div class="qris-box" onclick="openModal()">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <p>Klik QR code untuk memperbesar</p>
+                    <div style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+                        <p><i class="fas fa-info-circle"></i> Scan QR code dengan aplikasi e-wallet atau mobile banking</p>
+                    </div>
+                </div>
+
+                <!-- DANA Preview -->
+                <div class="ewallet-preview" id="danaPreview">
+                    <h3>Transfer ke DANA</h3>
+                    <div class="payment-number">
+                        <p>Nomor DANA:</p>
+                        <div class="number-display" id="danaNumber">085757820755</div>
+                        <button class="copy-btn" onclick="copyNumber('dana')">
+                            <i class="far fa-copy"></i> Salin Nomor
+                        </button>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <p>Nama Akun DANA:</p>
+                        <input type="text" class="account-input" id="danaAccount" placeholder="Masukkan nama akun DANA Anda">
+                    </div>
+                </div>
+
+                <!-- GOPAY Preview -->
+                <div class="ewallet-preview" id="gopayPreview">
+                    <h3>Transfer ke GoPay</h3>
+                    <div class="payment-number">
+                        <p>Nomor GoPay:</p>
+                        <div class="number-display" id="gopayNumber">083134463914</div>
+                        <button class="copy-btn" onclick="copyNumber('gopay')">
+                            <i class="far fa-copy"></i> Salin Nomor
+                        </button>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <p>Nama Akun GoPay:</p>
+                        <input type="text" class="account-input" id="gopayAccount" placeholder="Masukkan nama akun GoPay Anda">
+                    </div>
+                </div>
+
+                <!-- OVO Preview -->
+                <div class="ewallet-preview" id="ovoPreview">
+                    <h3>Transfer ke OVO</h3>
+                    <div class="payment-number">
+                        <p>Nomor OVO:</p>
+                        <div class="number-display" id="ovoNumber">085165212382</div>
+                        <button class="copy-btn" onclick="copyNumber('ovo')">
+                            <i class="far fa-copy"></i> Salin Nomor
+                        </button>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <p>Nama Akun OVO:</p>
+                        <input type="text" class="account-input" id="ovoAccount" placeholder="Masukkan nama akun OVO Anda">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables
+        let selectedMethod = '';
+        let uploadedFile = null;
+        const adminTelegram = '@TwinItsme'; // Ganti dengan username admin Telegram Anda
+
+        // Generate random payment numbers
+        function generatePaymentNumbers() {
+            const prefixes = ['0812', '0813', '0814', '0857', '0858'];
+            const randomNum = () => Math.floor(1000000 + Math.random() * 9000000);
+
+            document.getElementById('danaNumber').textContent = '085757820755'; // ← Nomor DANA Anda
+            document.getElementById('gopayNumber').textContent = '083134463914'; // ← Nomor GoPay Anda
+            document.getElementById('ovoNumber').textContent = '085165212382'; // ← Nomor OVO Anda
+        }
+
+        // Validate form
+        function validateForm() {
+            const amount = document.getElementById('amount').value;
+            const name = document.getElementById('name').value;
+            const telegram = document.getElementById('telegram').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+            if (!amount || amount < 1000) {
+                showNotification('error', 'Jumlah minimal Rp 1000');
+                return;
+            }
+
+            if (!name || name.length < 3) {
+                showNotification('error', 'Nama minimal 3 karakter');
+                return;
+            }
+
+            if (!telegram.startsWith('@')) {
+                showNotification('error', 'Username Telegram harus dimulai dengan @');
+                return;
+            }
+
+            if (!whatsapp || whatsapp.length < 10) {
+                showNotification('error', 'Nomor WhatsApp tidak valid');
+                return;
+            }
+
+            if (!paymentMethod) {
+                showNotification('error', 'Pilih metode pembayaran');
+                return;
+            }
+
+            // Show upload section
+            document.getElementById('uploadSection').style.display = 'block';
+            document.getElementById('telegramBtn').style.display = 'flex';
+            
+            // Update payment preview
+            updatePaymentPreview(paymentMethod);
+            
+            showNotification('success', 'Form valid! Sekarang upload bukti pembayaran');
+        }
+
+        // Update payment preview based on selected method
+        function updatePaymentPreview(method) {
+            selectedMethod = method;
+            
+            // Hide all previews
+            document.getElementById('defaultMessage').style.display = 'none';
+            document.getElementById('qrisPreview').style.display = 'none';
+            document.getElementById('danaPreview').style.display = 'none';
+            document.getElementById('gopayPreview').style.display = 'none';
+            document.getElementById('ovoPreview').style.display = 'none';
+
+            // Show selected preview
+            if (method === 'qris') {
+                document.getElementById('qrisPreview').style.display = 'block';
+            } else if (method === 'dana') {
+                document.getElementById('danaPreview').style.display = 'block';
+            } else if (method === 'gopay') {
+                document.getElementById('gopayPreview').style.display = 'block';
+            } else if (method === 'ovo') {
+                document.getElementById('ovoPreview').style.display = 'block';
+            }
+        }
+
+        // File upload functions
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // File validation
+            if (file.size > 5 * 1024 * 1024) {
+                showNotification('error', 'File maksimal 5MB');
+                return;
+            }
+
+            const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+            if (!validTypes.includes(file.type)) {
+                showNotification('error', 'Format file tidak didukung');
+                return;
+            }
+
+            uploadedFile = file;
+
+            // Show preview for images
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('previewContainer').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // For PDF, show PDF icon
+                document.getElementById('previewImage').src = 'https://cdn-icons-png.flaticon.com/512/337/337946.png';
+                document.getElementById('previewContainer').style.display = 'block';
+            }
+
+            showNotification('success', 'File berhasil diupload');
+        });
+
+        function removeFile() {
+            uploadedFile = null;
+            document.getElementById('fileInput').value = '';
+            document.getElementById('previewContainer').style.display = 'none';
+            showNotification('info', 'File dihapus');
+        }
+
+        // Copy number function
+        function copyNumber(method) {
+            let number = '';
+            if (method === 'dana') {
+                number = document.getElementById('danaNumber').textContent.replace(/\s/g, '');
+            } else if (method === 'gopay') {
+                number = document.getElementById('gopayNumber').textContent.replace(/\s/g, '');
+            } else if (method === 'ovo') {
+                number = document.getElementById('ovoNumber').textContent.replace(/\s/g, '');
+            }
+
+            navigator.clipboard.writeText(number).then(() => {
+                showNotification('success', 'Nomor berhasil disalin');
+            });
+        }
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('qrisModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('qrisModal').style.display = 'none';
+        }
+
+        // Show notification
+        function showNotification(type, message) {
+            const notification = document.getElementById('notification');
+            const title = document.getElementById('notificationTitle');
+            const msg = document.getElementById('notificationMessage');
+
+            if (type === 'error') {
+                title.textContent = 'Error!';
+                notification.style.borderLeftColor = 'var(--danger)';
+            } else if (type === 'success') {
+                title.textContent = 'Berhasil!';
+                notification.style.borderLeftColor = 'var(--success)';
+            } else {
+                title.textContent = 'Info';
+                notification.style.borderLeftColor = 'var(--warning)';
+            }
+
+            msg.textContent = message;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Main function: Send confirmation to Telegram
+        function sendToTelegram() {
+            // Validate required fields
+            const amount = document.getElementById('amount').value;
+            const name = document.getElementById('name').value;
+            const telegram = document.getElementById('telegram').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+            if (!uploadedFile) {
+                showNotification('error', 'Upload bukti pembayaran terlebih dahulu');
+                return;
+            }
+
+            // Validate account name for e-wallets
+            let accountName = '';
+            if (paymentMethod === 'dana') {
+                accountName = document.getElementById('danaAccount').value;
+                if (!accountName) {
+                    showNotification('error', 'Masukkan nama akun DANA');
+                    return;
+                }
+            } else if (paymentMethod === 'gopay') {
+                accountName = document.getElementById('gopayAccount').value;
+                if (!accountName) {
+                    showNotification('error', 'Masukkan nama akun GoPay');
+                    return;
+                }
+            } else if (paymentMethod === 'ovo') {
+                accountName = document.getElementById('ovoAccount').value;
+                if (!accountName) {
+                    showNotification('error', 'Masukkan nama akun OVO');
+                    return;
+                }
+            }
+
+            // Get payment number for e-wallets
+            let paymentNumber = '';
+            if (paymentMethod === 'dana') {
+                paymentNumber = document.getElementById('danaNumber').textContent;
+            } else if (paymentMethod === 'gopay') {
+                paymentNumber = document.getElementById('gopayNumber').textContent;
+            } else if (paymentMethod === 'ovo') {
+                paymentNumber = document.getElementById('ovoNumber').textContent;
+            }
+
+            // Create the message for Telegram
+            const message = `📋 *KONFIRMASI PEMBAYARAN* 📋
+
+<blockquote>
+💰 Jumlah: Rp ${parseInt(amount).toLocaleString('id-ID')>}
+👤 Nama: ${name}
+📱 Telegram: ${telegram}
+📞 WhatsApp: ${whatsapp}
+💳 Metode: ${paymentMethod.toUpperCase()}
+
+${paymentMethod !== 'qris' ? `📞 *Nomor ${paymentMethod.toUpperCase()}:* ${paymentNumber}` : ''}
+${accountName ? `👤 *Nama Akun:* ${accountName}` : ''}
+
+📄 Bukti Transfer: ${uploadedFile.name}
+📅 Waktu: ${new Date().toLocaleString('id-ID')}
+</blockquote>
+
+✅ Konfirmasi ini dikirim melalui Twins-Pay`;
+
+            // Encode the message for URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Create Telegram link with message
+            const telegramLink = `https://t.me/${adminTelegram.replace('@', '')}?text=${encodedMessage}`;
+            
+            // Show confirmation before opening
+            if (confirm(`Konfirmasi akan dikirim ke ${adminTelegram}\n\nBuka Telegram sekarang?`)) {
+                // Open Telegram in new tab
+                window.open(telegramLink, '_blank');
+                
+                // Show success notification
+                showNotification('success', 'Telegram dibuka! Tempel pesan dan kirim ke admin');
+                
+                // Simpan data lokal (untuk demo)
+                saveLocalData({
+                    amount,
+                    name,
+                    telegram,
+                    whatsapp,
+                    paymentMethod,
+                    accountName,
+                    paymentNumber,
+                    fileName: uploadedFile.name,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+
+        // Save data to localStorage (for demo purposes)
+        function saveLocalData(data) {
+            const history = JSON.parse(localStorage.getItem('paymentHistory') || '[]');
+            history.push(data);
+            localStorage.setItem('paymentHistory', JSON.stringify(history));
+            
+            console.log('Data saved locally:', data);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            generatePaymentNumbers();
+            console.log('PaymentHub dengan Telegram integration loaded!');
+            
+            // Enable form submission on Enter key
+            document.getElementById('amount').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') validateForm();
+            });
+        });
+    </script>
+</body>
+</html>
