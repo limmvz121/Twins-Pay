@@ -877,21 +877,19 @@
             }
 
             // Create the message for Telegram
-            const message = `📋 *KONFIRMASI PEMBAYARAN* 📋
+            const message = `📋 𝗞𝗼𝗻𝗳𝗶𝗿𝗺𝗮𝘀𝗶 𝗣𝗲𝗺𝗯𝗮𝘆𝗮𝗿𝗮𝗻
 
-<blockquote>
-💰 Jumlah: Rp ${parseInt(amount).toLocaleString('id-ID')}
-👤 Nama: ${name}
-📱 Telegram: ${telegram}
-📞 WhatsApp: ${whatsapp}
-💳 Metode: ${paymentMethod.toUpperCase()}
-
-${paymentMethod !== 'qris' ? `📞 *Nomor ${paymentMethod.toUpperCase()}:* ${paymentNumber}` : ''}
-${accountName ? `👤 *Nama Akun:* ${accountName}` : ''}
-
-📄 Bukti Transfer: ${uploadedFile.name}
-📅 Waktu: ${new Date().toLocaleString('id-ID')}
-</blockquote>
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+• 💰 Jumlah: Rp ${parseInt(amount).toLocaleString('id-ID')}
+• 👤 Nama: ${name}
+• 📱 Telegram: ${telegram}
+• 📞 WhatsApp: ${whatsapp}
+• 💳 Metode: ${paymentMethod.toUpperCase()}
+${paymentMethod !== 'qris' ? `• 📱 Nomor ${paymentMethod.toUpperCase()}: ${paymentNumber}\n` : ''}${accountName ? `
+👤 Nama Akun: ${accountName}\n` : ''}
+• 📄 Bukti Transfer: ${uploadedFile.name}
+• 📅 Waktu: ${new Date().toLocaleString('id-ID')}
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
 ✅ Konfirmasi ini dikirim melalui Twins-Pay`;
 
